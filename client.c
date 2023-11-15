@@ -6,7 +6,7 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:22 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/15 08:07:13 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/15 09:05:49 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	send_char(int pid, char c)
 	}
 }
 
-/* Send each 7-byte char of `str` bit by bit including the null-terminator. */
+/* Send each char of `str` bit by bit including the null-terminator. */
 void	send_msg(int pid, char *str)
 {
 	size_t	i;
