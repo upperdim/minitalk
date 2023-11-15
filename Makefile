@@ -6,32 +6,38 @@
 #    By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/05 12:26:25 by tunsal            #+#    #+#              #
-#    Updated: 2023/11/05 15:32:33 by tunsal           ###   ########.fr        #
+#    Updated: 2023/11/15 08:34:00 by tunsal           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS				= ft_printf.c ft_putunbr_base.c ft_putnbr.c ft_putstr.c
-OBJS				= $(SRCS:.c=.o)
+CLSRC				= client.c
+CLOBJ				= $(CLSRC:.c=.o)
+CLNAME				= client
 
-NAME				= libftprintf.a
+SVSRC				= server.c
+SVOBJ				= $(SVSRC:.c=.o)
+SVNAME				= server
+
 CC					= gcc
 CFLAGS				= -Wall -Wextra -Werror
 
-all:				$(NAME)
+all:				./libft/libft.a $(CLNAME) $(SVNAME)
 
-$(NAME):			makelibft $(OBJS)
-					cp ./libft/libft.a ./$(NAME)
-					ar -r $(NAME) $(OBJS)
+$(CLNAME):			$(CLSRC)
+					$(CC) $(CFLAGS) $(CLSRC) -L libft -lft -o $(CLNAME)
 
-makelibft:
+$(SVNAME):			$(SVSRC)
+					$(CC) $(CFLAGS) $(SVSRC) -L libft -lft -o $(SVNAME)
+
+./libft/libft.a:
 					make -C ./libft all
 
 clean:
 					make -C ./libft clean
-					rm -f $(OBJS)
+					rm -f $(CLOBJ) $(SVOBJ)
 
 fclean:				clean
 					make -C ./libft fclean
-					rm -f $(NAME)
+					rm -f $(CLNAME) $(SVNAME)
 
 re: 				fclean all
