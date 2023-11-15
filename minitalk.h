@@ -3,7 +3,7 @@
 
 #include <unistd.h>
 #include <signal.h>
-#include "libft/libft.h"
+#include "ft_printf/ft_printf.h"
 
 # define BITS_PER_CHAR 7
 

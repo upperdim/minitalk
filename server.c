@@ -6,7 +6,7 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:20 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/15 08:04:37 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/15 09:01:19 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ void	receive_msg(int received_bit)
 
 int	main()
 {
-	ft_putstr_fd("Server PID: ", 1);
-	ft_putnbr_fd(getpid(), 1);
-	ft_putchar_fd('\n', 1);
+	ft_printf("Server PID: %d\n", getpid());
 	while (1)
 	{
 		signal(SIGUSR1, receive_msg);

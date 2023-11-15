@@ -5,39 +5,33 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/05 12:26:25 by tunsal            #+#    #+#              #
-#    Updated: 2023/11/15 08:59:55 by tunsal           ###   ########.fr        #
+#    Created: 2023/10/20 19:39:51 by tunsal            #+#    #+#              #
+#    Updated: 2023/11/11 21:03:35 by tunsal           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CLSRC				= client.c
-CLOBJ				= $(CLSRC:.c=.o)
-CLNAME				= client
+SRCS				= ft_printf.c ft_putchar.c ft_putnbr.c ft_putsize_base.c ft_putstr.c ft_putunbr_hex.c ft_putunbr_ptr.c ft_putunbr.c
+OBJS				= $(SRCS:.c=.o)
 
-SVSRC				= server.c
-SVOBJ				= $(SVSRC:.c=.o)
-SVNAME				= server
-
+NAME				= libftprintf.a
 CC					= gcc
 CFLAGS				= -Wall -Wextra -Werror
 
-all:				ft_printf/libftprintf.a $(CLNAME) $(SVNAME)
+all:				./libft/libft.a $(NAME)
 
-$(CLNAME):			$(CLSRC)
-					$(CC) $(CFLAGS) $(CLSRC) -L ft_printf -lftprintf -o $(CLNAME)
+$(NAME):			$(OBJS)
+					cp libft/libft.a $(NAME)
+					ar -r $(NAME) $(OBJS) 
 
-$(SVNAME):			$(SVSRC)
-					$(CC) $(CFLAGS) $(SVSRC) -L ft_printf -lftprintf -o $(SVNAME)
-
-ft_printf/libftprintf.a:
-					make -C ./ft_printf all
+./libft/libft.a:
+					make -C ./libft all
 
 clean:
-					make -C ./ft_printf clean
-					rm -f $(CLOBJ) $(SVOBJ)
+					make -C ./libft clean
+					rm -f $(OBJS)
 
 fclean:				clean
-					make -C ./ft_printf fclean
-					rm -f $(CLNAME) $(SVNAME)
+					make -C ./libft fclean
+					rm -f $(NAME)
 
-re: 				fclean all
+re:					fclean all
