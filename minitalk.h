@@ -7,6 +7,9 @@
 
 # define BITS_PER_CHAR 7
 
+# define BIT_0_SIGNAL SIGUSR1
+# define BIT_1_SIGNAL SIGUSR2
+
 typedef struct incoming_char
 {
 	char c;

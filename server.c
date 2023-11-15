@@ -6,7 +6,7 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:20 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/15 09:01:19 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/15 09:54:08 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main()
 	ft_printf("Server PID: %d\n", getpid());
 	while (1)
 	{
-		signal(SIGUSR1, receive_msg);
-		signal(SIGUSR2, receive_msg);
+		signal(BIT_0_SIGNAL, receive_msg);
+		signal(BIT_1_SIGNAL, receive_msg);
 		pause();
 	}
 	return (0);

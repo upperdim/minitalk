@@ -6,7 +6,7 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:22 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/15 09:05:49 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/15 09:55:01 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	send_char(int pid, char c)
 	while (bit < BITS_PER_CHAR)
 	{
 		if ((c >> bit) & 1)
-			kill(pid, SIGUSR2);
+			kill(pid, BIT_1_SIGNAL);
 		else
-			kill(pid, SIGUSR1);
+			kill(pid, BIT_0_SIGNAL);
 		++bit;
 		usleep(300);
 	}
