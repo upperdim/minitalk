@@ -6,32 +6,36 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:20 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/13 10:30:24 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/15 08:04:37 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
+#include "minitalk.h"
 
-void	receive_msg(int signum, siginfo_t *info, void *context)
+void	receive_msg(int received_bit)
 {
-	int	i;
-
-	i = 0;
-	
+	g_curr_char.c += (received_bit & 1) << g_curr_char.bit_index;
+	g_curr_char.bit_index++;
+	if (g_curr_char.bit_index == BITS_PER_CHAR)
+	{
+		if (g_curr_char.c == 0)
+			ft_putchar_fd('\n', 1);
+		else
+			ft_putchar_fd(g_curr_char.c, 1);
+		g_curr_char.c = 0;
+		g_curr_char.bit_index = 0;
+	}
 }
 
 int	main()
 {
-	struct sigaction	sigact;
-
-	ft_print("Server PID: %d\n", getpid());
-	sigact.sa_sigaction = receive_msg;
-	sigact.sa_flags = SA_SIGINFO;
+	ft_putstr_fd("Server PID: ", 1);
+	ft_putnbr_fd(getpid(), 1);
+	ft_putchar_fd('\n', 1);
 	while (1)
 	{
-		sigaction(SIGUSR1, &receive_msg, NULL);
-		sigaction(SIGUSR2, &receive_msg, NULL);
+		signal(SIGUSR1, receive_msg);
+		signal(SIGUSR2, receive_msg);
 		pause();
 	}
 	return (0);

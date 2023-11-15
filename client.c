@@ -6,21 +6,20 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:22 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/13 10:36:30 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/15 08:07:13 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
+#include "minitalk.h"
 
 void	send_char(int pid, char c)
 {
 	int	bit;
 
 	bit = 0;
-	while (bit < 7)
+	while (bit < BITS_PER_CHAR)
 	{
-		if ((c >> bit) == 1)
+		if ((c >> bit) & 1)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
@@ -45,18 +44,17 @@ void	send_msg(int pid, char *str)
 
 int	main(int argc, char **argv)
 {
-	unsigned char		unicode_ch[4];
-	int					pid;
+	int	pid;
 
 	if (argc != 3)
 	{
-		ft_printf("Error! Usage: <program name> <PID> <message>\n");
+		ft_putstr_fd("Error! Usage: <program name> <PID> <message>\n", 1);
 		return (0);
 	}
 	pid = ft_atoi(argv[1]);
 	if (pid <= 0 || pid > 99999)
 	{
-		ft_printf("Error! PID is out of valid range.\n");
+		ft_putstr_fd("Error! PID is out of valid range.\n", 1);
 		return (0);
 	}
 	send_msg(pid, argv[2]);
