@@ -6,14 +6,16 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:22 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/15 11:52:04 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/17 19:49:49 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	send_validation(int signal)
+void	validate_transmission(int signal, siginfo_t *info, void *context)
 {
+	(void) info;
+	(void) context;
 	if (signal == SV_MESSAGE_RECEIVED_SIGNAL)
 		ft_putstr_fd("Server has received the message successfully.\n", 1);
 }
@@ -37,14 +39,19 @@ void	send_char(int server_pid, char c)
 /* Send each char of `str` bit by bit including the null-terminator. */
 void	send_msg(int server_pid, char *str)
 {
-	size_t	i;
-
+	struct sigaction	sigact;
+	size_t				i;
+	
 	i = 0;
 	while (str[i] != '\0')
 	{
 		send_char(server_pid, str[i]);
 		++i;
 	}
+	sigact.sa_sigaction = validate_transmission;
+	sigemptyset(&sigact.sa_mask);
+	sigact.sa_flags = 0;
+	sigaction(SV_MESSAGE_RECEIVED_SIGNAL, &sigact, NULL);
 	send_char(server_pid, '\0');
 }
 
@@ -64,9 +71,5 @@ int	main(int argc, char **argv)
 		return (2);
 	}
 	send_msg(server_pid, argv[2]);
-	signal(SV_MESSAGE_RECEIVED_SIGNAL, send_validation);
-	// send_char(server_pid, '\0');
-	while (1)
-		;
 	return (0);
 }
