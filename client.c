@@ -6,7 +6,7 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:22 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/17 19:49:49 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/18 01:47:41 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	validate_transmission(int signal, siginfo_t *info, void *context)
 	(void) info;
 	(void) context;
 	if (signal == SV_MESSAGE_RECEIVED_SIGNAL)
-		ft_putstr_fd("Server has received the message successfully.\n", 1);
+		ft_printf("Server has received the message successfully.\n");
 }
 
 void	send_char(int server_pid, char c)
@@ -36,7 +36,6 @@ void	send_char(int server_pid, char c)
 	}
 }
 
-/* Send each char of `str` bit by bit including the null-terminator. */
 void	send_msg(int server_pid, char *str)
 {
 	struct sigaction	sigact;
@@ -61,13 +60,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_putstr_fd("Error! Usage: <program name> <PID> <message>\n", 1);
+		ft_printf("Error! Usage: <program name> <PID> <message>\n");
 		return (1);
 	}
 	server_pid = ft_atoi(argv[1]);
 	if (server_pid <= 0 || server_pid > 99999)
 	{
-		ft_putstr_fd("Error! PID is out of valid range.\n", 1);
+		ft_printf("Error! PID is out of valid range.\n");
 		return (2);
 	}
 	send_msg(server_pid, argv[2]);

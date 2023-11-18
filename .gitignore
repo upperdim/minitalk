@@ -1,6 +1,11 @@
 .DS_Store
+.vscode
 a.out
 server
 client
 *.o
 *.a
+demo
+demo.c
+putbin.c
+ft_putwchar_fd.c
