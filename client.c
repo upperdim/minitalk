@@ -6,7 +6,7 @@
 /*   By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:32:22 by tunsal            #+#    #+#             */
-/*   Updated: 2023/11/18 01:47:41 by tunsal           ###   ########.fr       */
+/*   Updated: 2023/11/18 01:57:54 by tunsal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	send_msg(int server_pid, char *str)
 {
 	struct sigaction	sigact;
 	size_t				i;
-	
+
 	i = 0;
 	while (str[i] != '\0')
 	{

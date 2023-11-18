@@ -6,7 +6,7 @@
 #    By: tunsal <tunsal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/05 12:26:25 by tunsal            #+#    #+#              #
-#    Updated: 2023/11/15 08:59:55 by tunsal           ###   ########.fr        #
+#    Updated: 2023/11/18 02:00:43 by tunsal           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,3 +41,5 @@ fclean:				clean
 					rm -f $(CLNAME) $(SVNAME)
 
 re: 				fclean all
+
+bonus:				all
